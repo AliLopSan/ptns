@@ -26,7 +26,7 @@ In the `\src` folder, you will find the `datastructures.py` file. Since tree-bas
 Some functions included in the TB_Network class.
 | function                  | parameters                             | description                                                                                                                                                                |
 | ------------------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `init_base_from_tralda`   | Species tree $S$, number of characters | Generates a tree-based nework from a tralda tree.                                                                                                                          |
+| `init_base_from_tralda`   | Species tree $S$, number of characters $n$ | Generates a tree-based nework from a tralda tree.                                                                                                                          |
 | `generate_base_labeling`  |                                        | Generates a Fitch-like base labeling for $N$.                                                                                                                              |
 | `sankoff_labeling`        | $l$, $f$                               | Generates a labeling for $N$ using dynamic programming (Sankoff-Rousseau) algorithm with a cost matrix that penalizes each loss with $l$ and each first appearance by $f$. |
 | `get_fas_by_state_change` |                                        | Returns a dictionary of first appearances where keys are characters $i$ from 0 to $n$ and values are the number of changes from $0$ to $1$ in position $i$.                |
@@ -37,5 +37,5 @@ There are two ways to use the library, either on simulated or on real-life data.
 
 ## References:
 If you use this repository, please cite our work:
-> López Sánchez, A., Lafond, M. Predicting horizontal gene transfers with perfect transfer networks. Algorithms Mol Biol 19, 6 (2024). https://doi.org/10.1186/s13015-023-00242-2
-> López Sánchez, A., Lafond, M. (2024). Galled Perfect Transfer Networks. In: Scornavacca, C., Hernández-Rosales, M. (eds) Comparative Genomics. RECOMB-CG 2024. Lecture Notes in Computer Science(), vol 14616. Springer, Cham. https://doi.org/10.1007/978-3-031-58072-7_2
+> - López Sánchez, A., Lafond, M. Predicting horizontal gene transfers with perfect transfer networks. Algorithms Mol Biol 19, 6 (2024). https://doi.org/10.1186/s13015-023-00242-2
+ - López Sánchez, A., Lafond, M. (2024). Galled Perfect Transfer Networks. In: Scornavacca, C., Hernández-Rosales, M. (eds) Comparative Genomics. RECOMB-CG 2024. Lecture Notes in Computer Science(), vol 14616. Springer, Cham. https://doi.org/10.1007/978-3-031-58072-7_2
