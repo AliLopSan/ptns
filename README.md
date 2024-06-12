@@ -23,6 +23,15 @@ In the `\src` folder, you will find the `datastructures.py` file. Since tree-bas
 - TB_Node
 - TB_Network
 
+Some functions included in the TB_Network class.
+| function                  | parameters                             | description                                                                                                                                                                |
+| ------------------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init_base_from_tralda`   | Species tree $S$, number of characters | Generates a tree-based nework from a tralda tree.                                                                                                                          |
+| `generate_base_labeling`  |                                        | Generates a Fitch-like base labeling for $N$.                                                                                                                              |
+| `sankoff_labeling`        | $l$, $f$                               | Generates a labeling for $N$ using dynamic programming (Sankoff-Rousseau) algorithm with a cost matrix that penalizes each loss with $l$ and each first appearance by $f$. |
+| `get_fas_by_state_change` |                                        | Returns a dictionary of first appearances where keys are characters $i$ from 0 to $n$ and values are the number of changes from $0$ to $1$ in position $i$.                |
+| `greedy_completion`       |                                        | Adds tranfer arcs to $N$. New transfers will be added to $N$, if a transfer occurs more than once, then it keeps track of the number of occurences.                        |
+
 ## Tests
 There are two ways to use the library, either on simulated or on real-life data. Both tests are contained in the `\tests` subfolder.
 
