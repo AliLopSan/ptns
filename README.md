@@ -4,9 +4,9 @@ A repository for the generation of Perfect Transfer Networks (PTNs)
 ## What are Perfect Transfer Networks?
 **Perfect Transfer Networks** also called PTNs [1](https://link.springer.com/article/10.1186/s13015-023-00242-2?utm_source=rct_congratemailt&utm_medium=email&utm_campaign=oa_20240206&utm_content=10.1186/s13015-023-00242-2) are a character-based model for the inference of Horizontal Gene Transfer events. How do they work? Well, it all starts with:
 ![](https://github.com/AliLopSan/ptns/blob/main/README_files/panel_1.gif)
-This representations allows us to find horizontal gene transfers (HGTs):
+### How do we find Horizontal Gene Transfers?
 ![](https://github.com/AliLopSan/ptns/blob/main/README_files/panel_2.gif)
-The intuition behind PTNs:
+### The intuition behind PTNs:
 ![](https://github.com/AliLopSan/ptns/blob/main/README_files/panel_3.gif)
 
 ## Dependencies
