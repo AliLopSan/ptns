@@ -211,38 +211,6 @@ class TB_Network():
                     v.chars[char] = True
                 else:
                     v.chars[char] = False
-            
-
-    def extract_labeling_from_gt(self,char,ogt,
-                                 tralda_tb_dict,
-                                 labels_to_n):
-        def _get_reconc_transfer_edge(node,labels_to_n):
-            if node.event != 'H':
-                return KeyError(f'{node} is not an HGT node')
-            for v in node.children:
-                if hasattr(v,'transferred') and v.transferred:
-                    if v.event == 'S':
-                        parent = labels_to_n[v.reconc].parent
-                        recipient = (parent.label,v.reconc)
-                    else:
-                        recipient = v.reconc
-                    yield (node.reconc,recipient)
-
-        transfer_edges_set = set(self.transfers)
-
-        for n in ogt.preorder():
-            if n.event != 'H':
-                node_in_tb = tralda_tb_dict[labels_to_n[n.reconc]]
-                node_in_tb.chars[char] = True
-            else:
-                for edge in _get_reconc_transfer_edge(n,labels_to_n):
-                    if edge in transfer_edges_set:
-                        position =self.transfers.index(edge)
-                        self.transfer_weight[position] = self.transfer_weight[position] + 1
-                    else:
-                        self.transfers.append(edge)
-                        transfer_edges_set.add(edge)
-                        self.transfer_weight[len(self.transfers) - 1] = 0
 
 
     def get_types_of_transfers(self,S,n_characters):
