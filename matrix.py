@@ -2,11 +2,14 @@
 #      GENERATE CHARACTER-STATE MATRICES
 #................................................
 #                  version 1.0
+import requests
 import random as rd
 import pickle as pkl
 import pandas as pd
 import asymmetree.treeevolve as te
 from treebased import TB_Network
+from alive_progress import alive_bar
+
 
 #INPUT: S species tree with tralda, N TB_Network 
 #OUTPUT: N annotated with presence/absence data
@@ -108,8 +111,9 @@ def generate_from_asymm(S,N,n_chars,params_dict,name):
 
     #Output resulting highway graph
     H_name = name + '_highway_graph.pkl'
-    #file = open(H_name,'wb')
-    #pkl.dump(H,file)
+    file = open(H_name,'wb')
+    pkl.dump(H,file)
+    file.close()
 
     for leaf in H.leaves():
         character_state[leaf.label] = leaf.chars
@@ -129,3 +133,24 @@ def generate_from_asymm(S,N,n_chars,params_dict,name):
 #    - A list of K0s of the form (K0789475) that
 #     correspond to the characters
 #.................................................
+def generate_from_KEGG_v1(org_list,ko_list):
+    char_state = dict()
+    print("\t Building char-state matrix: ")
+    with alive_bar(len(org_list)) as bar:
+        for org in org_list:
+            states = []
+            for ko in ko_list:
+                url = "https://rest.kegg.jp/link/" + org + "/ko:" + ko
+                r = requests.get(url)
+                if (r.status_code == 400):
+                    print("ERROR: Bad request to server")
+                    sys.exit()
+                else:
+                    if (len(r.text) == 1):
+                        states.append(0)
+                    else:
+                        states.append(1)
+            char_state[org] = states
+            bar()
+        
+    return(char_state)
