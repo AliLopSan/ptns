@@ -56,7 +56,7 @@ highway.print_transfer_hw_info()
 
 #Generate a PTN with inverse model   ........................................
 params["HGT_type"] = "inverse"
-name = "inverse"
+name = "./data/inverse"
 n3 = TB_Network(S.root)
 n3.init_base_from_tralda(S,n_chars)
 matrix,highway = mx.generate_from_asymm(S,n3,n_chars,params,name)
