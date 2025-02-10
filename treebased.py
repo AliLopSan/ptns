@@ -169,11 +169,11 @@ class TB_Network():
             for child in v.children:
                 label_cost = np.copy(dp_table[child])
                 for label in range(0,2):
-                    label_cost[label] = label_cost[label] + M[label,current_label]
+                    label_cost[label] = label_cost[label] + M[current_label,label]
                 label_sum = label_sum + label_cost.min()
             return label_sum
         #cost matrix
-        M = np.array([[0,loss_cost],[fa_cost,0]])
+        M = np.array([[0,fa_cost],[loss_cost,0]])
 
         for char in range(0,len(self.root.chars)):
             #Dynamic programming table initialization
