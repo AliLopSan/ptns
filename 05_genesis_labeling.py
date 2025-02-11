@@ -70,11 +70,11 @@ def genesis_labeling(TB,loss_cost,fa_cost):
     dp_table = dict()
 
     # Main algo
-    for char in range(0,len(self.root.chars)):
+    for char in range(0,len(TB.root.chars)):
         dp_table = dict()
 
         #main algo
-        for v in TB.postorder:
+        for v in TB.postorder():
 
             dp_table[v] = dict()
             for label in [0,1]:
@@ -85,7 +85,7 @@ def genesis_labeling(TB,loss_cost,fa_cost):
                         dp_table[v][label,gain] = _inner_case_value(dp_table,v,label,gain,M)
 
         #backtracking
-        for v in N.preorder():
+        for v in TB.preorder():
             if v == N.root:
                 if dp_table[v][1,1] <= dp_table[v][0,1]:
                     v.chars[char] = True
@@ -93,7 +93,7 @@ def genesis_labeling(TB,loss_cost,fa_cost):
                 else:
                     v.chars[char] = False
                     #choose the origin
-                    origin = find_best_child_origin(dp_table,v,M)
+                    origin = _find_best_child_origin(dp_table,v,M)
            
             else:
                 if v == origin:
@@ -103,7 +103,7 @@ def genesis_labeling(TB,loss_cost,fa_cost):
                         v.chars[char] = False
                         #choose the origin
                         if not v.is_leaf():
-                            origin = find_best_child_origin(dp_table,v,M)
+                            origin = _find_best_child_origin(dp_table,v,M)
                 else:
                     if dp_table[v][1,0] <= dp_table[v][0,0]:
                         v.chars[char] = True
@@ -168,7 +168,7 @@ for j in range(0,len(penalization)):
             leaf.chars = m[leaf.label]
             
         #Generate a sankoff labeling for the inner nodes
-        N.sankoff_labeling(loss_cost,fa_cost)
+        genesis_labeling(N,loss_cost,fa_cost)
 
         #Calculate first appearance nodes
         fas = N.get_fas_by_state_change()
