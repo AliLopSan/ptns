@@ -95,23 +95,33 @@ f1.close()
 sdata = pd.read_csv("./real_data/interphylum_species_50.csv")
 
 
+#Possible transfer highway thresholds
+t_thresholds = [5,9,18,27,36,40]
+
+
+#Start with Fitch dataset               
+data_name = "./results/fitch_hw_info.csv"
+data = pd.read_csv(data_name)
+for t in t_thresholds:
+        res_name = "./results/plots/pairwise_connectiivity/fitch_pairs_"+"t_"+str(t)+".pdf"
+        plot_fa_network_v2(sdata,data,S,res_name,t)
+
+#Parameters that make sense for the rest of the methods
 method = ['sankoff','genesis']
 penaliz_type = ["equal","hgt_half","hgt_quarter"]
 sdata = pd.read_csv("./real_data/interphylum_species_50.csv")
 
-#Possible transfer highway thresholds
-t_thresholds = [5,9,18]
 
 for p in penaliz_type:
     data_name = "./results/sankoff_"+ p +"_hw_info.csv"
     data = pd.read_csv(data_name)
     for t in t_thresholds:
-        res_name = "./results/plots/pairwise_connectiivity/sankoff_"+p+"_sankey_"+"t_"+str(t)+".pdf"
+        res_name = "./results/plots/pairwise_connectiivity/sankoff_"+p+"_pairs_"+"t_"+str(t)+".pdf"
         plot_fa_network_v2(sdata,data,S,res_name,t)
 
 for p in penaliz_type:
     data_name = "./results/genesis_"+ p +"_hw_info.csv"
     data = pd.read_csv(data_name)
     for t in t_thresholds:
-        res_name = "./results/plots/pairwise_connectiivity/genesis_"+p+"_sankey_"+"t_"+str(t)+".pdf"
+        res_name = "./results/plots/pairwise_connectiivity/genesis_"+p+"_pairs_"+"t_"+str(t)+".pdf"
         plot_fa_network_v2(sdata,data,S,res_name,t)
