@@ -2,8 +2,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pySankey.sankey import sankey
 
-def plot_sankey(species_data,hw_info,name):
-    filtered = hw_info[hw_info['weight'] > 5]
+plt.rcParams.update({
+    "text.usetex": True,
+    "font.family": "Helvetica"
+})
+
+def plot_sankey(species_data,hw_info,name,t_threshold):
+    filtered = hw_info[hw_info['weight'] > t_threshold]
     KEGG_2_species = dict(zip(species_data['kegg_id'],species_data['species']))
     
     # Identify entries matching the pattern 'T' followed by numbers
@@ -39,18 +44,21 @@ method = ['sankoff','genesis']
 penaliz_type = ["equal","hgt_half","hgt_quarter"]
 sdata = pd.read_csv("./real_data/interphylum_species_50.csv")
 
+t_thresholds = [5,9,18]
 
 for p in penaliz_type:
     data_name = "./results/sankoff_"+ p +"_hw_info.csv"
     data = pd.read_csv(data_name)
-    res_name = "./results/plots/sankoff_"+p+"_sankey.pdf"
-    plot_sankey(sdata,data,res_name)
+    for t in t_thresholds:
+        res_name = "./results/plots/sankey/sankoff_"+p+"_sankey_"+"t_"+str(t)+".pdf"
+        plot_sankey(sdata,data,res_name,t)
 
 for p in penaliz_type:
     data_name = "./results/genesis_"+ p +"_hw_info.csv"
     data = pd.read_csv(data_name)
-    res_name = "./results/plots/genesis_"+p+"_sankey.pdf"
-    plot_sankey(sdata,data,res_name)
+    for t in t_thresholds:
+        res_name = "./results/plots/sankey/genesis_"+p+"_sankey_"+"t_"+str(t)+".pdf"
+        plot_sankey(sdata,data,res_name,t)
 
         
         
