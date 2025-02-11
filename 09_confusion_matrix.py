@@ -59,7 +59,6 @@ def contingency_table(true_graph,graph):
     for u,v in i_edges:
         if (u,v) in t_edges:
             tp +=1
-            
         else:
             fp +=1
     for u,v in t_edges:
@@ -91,17 +90,13 @@ true_G = pkl.load(file)
 #Loading our data
 method = ['sankoff','genesis']
 penaliz_type = ["equal","hgt_half","hgt_quarter"]
-t_thresholds = [5,9,18]
+t_thresholds = [5,9,18,27,36,45]
 
 f1 = open("./real_data/species_tree_ultra.pkl","rb")
 S  = pkl.load(f1)
 f1.close()
 
 sdata = pd.read_csv("./real_data/interphylum_species_50.csv")
-
-
-
-
 
 m_id = []
 p_id = []
@@ -111,10 +106,9 @@ tn_list = []
 fp_list = []
 fn_list = []
 acc_list = []
-recall_list = []
-f1_list = []
 precision_list = []
 recall_list = []
+f1_list = []
 
 
 for m in method:
@@ -123,6 +117,9 @@ for m in method:
         for t in t_thresholds:
             G = build_infered_graph(data_name,t,sdata,S)
             order,size,tp,tn,fp,fn,accuracy,precision,recall,f1 = performance(true_G,G)
+            print("\t For dataset: ",m," ",p," ")
+            print("\ttp: ",tp," tn: ",tn," fp: ",fp,"fn:",fn)
+            print("\taccuracy: ",accuracy,"\t precision",precision,"\t recall",recall)
             m_id.append(m)
             p_id.append(p)
             th_list.append(t)
@@ -163,7 +160,7 @@ results['fp'] = fp_list
 results['fn'] = fn_list
 results['accuracy'] = acc_list
 results['precision'] = precision_list
-results['recall'] = acc_list
+results['recall'] = recall_list
 results['F1'] = f1_list
 
 
