@@ -25,7 +25,8 @@ def genesis_labeling(TB,loss_cost,fa_cost):
             for child in v.children:
                 origin_penalty = []
                 for l in [0,1]:
-                    origin_penalty.append(dp_table[child][l,1] + M[current_label,l])
+                    #origin_penalty.append(dp_table[child][l,1] + M[current_label,l])
+                    origin_penalty.append(dp_table[child][l,1])
                 brother_sum = 0
                 for brother in v.children:
                     if brother != child:
